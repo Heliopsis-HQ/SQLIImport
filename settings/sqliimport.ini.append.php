@@ -1,8 +1,8 @@
 <?php /* #?ini charset="utf-8"?
 
 [ImportSettings]
-AvailableSourceHandlers[]=rssimporthandler
-AvailableSourceHandlers[]=members
+#AvailableSourceHandlers[]=rssimporthandler
+#AvailableSourceHandlers[]=members
 
 [rssimporthandler-HandlerSettings]
 # Indicates if handler is enabled or not. Mandatory. Must be "true" or "false"
