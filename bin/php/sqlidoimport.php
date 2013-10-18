@@ -88,7 +88,7 @@ try
             $importFactory = SQLIImportFactory::instance();
             $importFactory->runImport( $aImportItems );
             $importFactory->cleanup();
-            $cli->notice( 'Import is over :)' );
+            $cli->output( 'Import is over :)' );
         }
         else
         {
@@ -97,7 +97,7 @@ try
     
         $memoryMax = memory_get_peak_usage();
         $memoryMax = round( $memoryMax / 1024 / 1024, 2 ); // Convert in Megabytes
-        $cli->notice( 'Peak memory usage : '.$memoryMax.'M' );
+        $cli->output( 'Peak memory usage : '.$memoryMax.'M' );
     }
     
     $script->shutdown();

@@ -92,7 +92,13 @@ final class SQLIImportFactory
         
         $this->aAvailableSourceHandlers = $this->importINI->variable( 'ImportSettings', 'AvailableSourceHandlers' );
         $this->robotUser = $this->setLoggedInUser();
-        $this->output = new ezcConsoleOutput();
+        if( $this->cli->isQuiet() )
+        {
+            $options = array( 'verbosityLevel' => 0 );
+        }
+        else $options = array();
+
+        $this->output = new ezcConsoleOutput(null, $options);
         
         SQLIImportToken::setIsImportScript( true );
     }
@@ -241,7 +247,7 @@ final class SQLIImportFactory
                 );
                 $progressBar = new ezcConsoleProgressbar( $this->output, $processLength, $progressBarOptions );
                 $progressBar->start();
-                $this->cli->warning( 'Now processing "'.$handlerName.'" handler.' );
+                $this->cli->output( 'Now processing "'.$handlerName.'" handler.' );
                 
                 $isInterrupted = false;
                 while( $row = $importHandler->getNextRow() )
@@ -269,7 +275,7 @@ final class SQLIImportFactory
                     // Interruption handling
                     if( $aImportItems[$i]->isInterrupted() )
                     {
-                        $this->cli->notice();
+                        $this->cli->output();
                         SQLIImportLogger::logNotice( 'Interruption has been requested for current import ! Cleaning and aborting process...' );
                         $isInterrupted = true;
                         break;
@@ -278,7 +284,7 @@ final class SQLIImportFactory
                 
                 $importHandler->cleanup();
                 $progressBar->finish();
-                $this->cli->notice();
+                $this->cli->output();
                 unset( $importHandler );
                 
                 
@@ -313,7 +319,7 @@ final class SQLIImportFactory
      */
     public function cleanup()
     {
-        SQLIImportLogger::writeNotice( 'Now cleaning the import process' );
+        //SQLIImportLogger::writeNotice( 'Now cleaning the import process' );
         $this->token = null;
         SQLIImportToken::cleanAll();
         $this->restorePerformanceSettings();
