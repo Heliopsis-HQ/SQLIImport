@@ -246,7 +246,6 @@ final class SQLIImportFactory
                     'barChar'           => '='
                 );
                 $progressBar = new ezcConsoleProgressbar( $this->output, $processLength, $progressBarOptions );
-                $progressBar->start();
                 $this->cli->output( 'Now processing "'.$handlerName.'" handler.' );
                 
                 $isInterrupted = false;
